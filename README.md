@@ -229,7 +229,7 @@ For now, using the `test.rest` file execute `GET {{baseUrl}}/orders`, our order 
 
 > Loadash is bundled in Cypress, and we will use that to filter the object; no need to wrestle the data. For a comparison of array vs lodash check out [this repo](https://github.com/muratkeremozcan/sorted-table-example/blob/main/cypress/integration/1.array-vs-lodash-vs-ramda.spec.js).
 
-Note that we also yield the response.body using `its('body')`. [its](https://docs.cypress.io/api/commands/its) is a connector in Cypress which yields a property's value on the previously yielded subject. It has Cypress function level [retry-ability](https://docs.cypress.io/guides/core-concepts/retry-ability) built-in to it, so it will retry the api call until that propery is exists; i.e. the response to the GET request has a `body` property.
+Note that we also yield the response.body using `its('body')`. [its](https://docs.cypress.io/api/commands/its) is a connector in Cypress which yields a property's value on the previously yielded subject. It has Cypress function level [retry-ability](https://docs.cypress.io/guides/core-concepts/retry-ability) built-in to it, so it will retry the api call until that property is exists; i.e. the response to the GET request has a `body` property.
 
 ```typescript
 import { datatype, address } from '@withshepherd/faker'
@@ -1133,7 +1133,7 @@ Using time travel debugger, let's look at the response body on getOrder. There i
 }
 ```
 
-In the real world, the data is much more complex and it is always easier to start with shallow properties, so let's write some simple spok assertion for shallow properties `total`, `createdAt` and `comments`.
+In the real world, the data is much more complex and it is always easier to start with shallow properties, so let's write some simple spok assertion for shallow properties.
 
 > Take a look at the [Pokemon API spok assertion](https://github.com/muratkeremozcan/cypressExamples/blob/master/cypress-api-spok/cypress/integration/pokemon-api-spok.spec.ts) for a complex use case.
 

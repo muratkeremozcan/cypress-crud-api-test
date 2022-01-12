@@ -25,24 +25,6 @@ jobs:
       - name: Checkout 🛎
         uses: actions/checkout@v2
 
-      - name: Read .nvmrc
-        run: echo "##[set-output name=NVMRC;]$(cat .nvmrc)"
-        id: nvm
-
-      - name: Use Node.js (.nvmrc)
-        uses: actions/setup-node@v2
-        with:
-          cache: 'yarn'
-          node-version: '${{ steps.nvm.outputs.NVMRC }}'
-
-      - name: Configure AWS Root Profile
-        uses: ./.github/actions/create-aws-profile
-        with:
-          profileName: root
-          access_key_id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          secret_access_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-      - run: aws codeartifact login --tool npm --repository extend-npm --domain extend --domain-owner 159581800400 --profile root
-
       - name: Update version badges 🏷
         run: npx -p dependency-version-badge update-badge cypress cypress-data-session cy-spok @bahmutov/cy-api
 
