@@ -1,3 +1,3 @@
 import './commands'
 import '@bahmutov/cy-api/support'
-import 'cypress-each'
+import 'cypress-data-session'

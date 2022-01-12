@@ -19,14 +19,14 @@ jobs:
       - name: Checkout 🛎
         uses: actions/checkout@v2
 
-      - name: typecheck
-        run: npm run typecheck
-
-      - name: lint
-        run: npm run lint
-
       # https://github.com/cypress-io/github-action
       - name: Run api tests 🧪
         uses: cypress-io/github-action@v2.11.7
         with:
           browser: chrome
+
+      - name: typecheck
+        run: npm run typecheck
+
+      - name: lint
+        run: npm run lint
