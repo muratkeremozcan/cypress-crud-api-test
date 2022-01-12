@@ -1,4 +1,4 @@
-@baseUrl = https://2afo7guwib.execute-api.us-east-1.amazonaws.com/latest/
+@baseUrl = https://2afo7guwib.execute-api.us-east-1.amazonaws.com/latest
 
 
 GET {{baseUrl}}
@@ -22,7 +22,7 @@ POST {{baseUrl}}/orders
 Content-Type: application/json
 
 {
-  "pizza": 1001,
+  "pizza": 1002,
   "address":"2767 Crawford Avenue"
 }
 ###
@@ -36,7 +36,7 @@ Content-Type: application/json
 }
 ###
 
-DELETE {{baseUrl}}/orders/51743734-c5d6-4701-b9ef-d5d50d0a5e70
+DELETE {{baseUrl}}/orders/12a68996-70be-4069-bd63-be2dee6a14ab
 ###
 
 POST {{baseUrl}}/delivery
