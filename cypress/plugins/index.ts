@@ -10,6 +10,9 @@
 // You can read more here:
 // https://on.cypress.io/plugins-guide
 // ***********************************************************
+// import the token function
+
+import * as token from '../../scripts/cypress-token'
 
 const cyDataSession = require('cypress-data-session/src/plugin')
 
@@ -20,6 +23,8 @@ const cyDataSession = require('cypress-data-session/src/plugin')
 module.exports = (on, config) => {
   // `on` is used to hook into various events Cypress emits
   // `config` is the resolved Cypress config
+
+  on('task', token)
 
   const allConfigs = Object.assign(
     {},
