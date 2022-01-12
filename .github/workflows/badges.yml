@@ -1,0 +1,56 @@
+name: badges
+on:
+  push:
+    # update README badge only if the README file changes
+    # or if the package.json file changes, or this file changes
+    branches:
+      - main
+    paths:
+      - README.md
+      - package.json
+      - .github/workflows/badges.yml
+  schedule:
+    # update badges every night
+    # because we have a few badges that are linked
+    # to the external repositories
+    - cron: '0 3 * * *'
+
+  workflow_dispatch:
+
+jobs:
+  badges:
+    name: Badges
+    runs-on: ubuntu-20.04
+    steps:
+      - name: Checkout 🛎
+        uses: actions/checkout@v2
+
+      - name: Read .nvmrc
+        run: echo "##[set-output name=NVMRC;]$(cat .nvmrc)"
+        id: nvm
+
+      - name: Use Node.js (.nvmrc)
+        uses: actions/setup-node@v2
+        with:
+          cache: 'yarn'
+          node-version: '${{ steps.nvm.outputs.NVMRC }}'
+
+      - name: Configure AWS Root Profile
+        uses: ./.github/actions/create-aws-profile
+        with:
+          profileName: root
+          access_key_id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          secret_access_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+      - run: aws codeartifact login --tool npm --repository extend-npm --domain extend --domain-owner 159581800400 --profile root
+
+      - name: Update version badges 🏷
+        run: npx -p dependency-version-badge update-badge cypress cypress-data-session cy-spok @bahmutov/cy-api
+
+      - name: Commit any changed files 💾
+        uses: stefanzweifel/git-auto-commit-action@v4
+        with:
+          commit_message: Updated badges
+          branch: main
+          file_pattern: README.md
+          push_options: '--force'
+          skip_fetch: true
