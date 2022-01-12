@@ -26,7 +26,7 @@ jobs:
           browser: chrome
 
       - name: typecheck
-        run: npm run typecheck
+        run: yarn typecheck
 
       - name: lint
-        run: npm run lint
+        run: yarn lint
