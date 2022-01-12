@@ -1,0 +1,53 @@
+@baseUrl = https://2afo7guwib.execute-api.us-east-1.amazonaws.com/latest/
+
+
+
+GET {{baseUrl}}
+###
+
+GET {{baseUrl}}/pizzas
+###
+
+GET {{baseUrl}}/pizzas/1
+###
+
+GET {{baseUrl}}/orders
+###
+
+@orderId = 6772b8c1-26c6-43c5-93b9-a6ec75d22353
+
+GET {{baseUrl}}/orders/{{orderId}}
+###
+
+POST {{baseUrl}}/orders
+Content-Type: application/json
+
+{
+  "pizza": 1001,
+  "address":"2767 Crawford Avenue"
+}
+###
+
+PUT {{baseUrl}}/orders/{{orderId}}
+Content-Type: application/json
+
+{
+  "pizza": 5,
+  "address":" 1234 Sesame Street"
+}
+###
+
+DELETE {{baseUrl}}/orders/51743734-c5d6-4701-b9ef-d5d50d0a5e70
+###
+
+POST {{baseUrl}}/delivery
+Content-Type: application/json
+
+{
+  "deliveryId": "28b9548b-c020-4b8c-9752-5a219ea9b3c2",
+  "status": "delivered"
+}
+###
+
+GET {{baseUrl}}/upload-url
+###

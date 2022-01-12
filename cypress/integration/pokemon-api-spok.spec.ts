@@ -56,15 +56,6 @@ describe('pokemon api', () => {
       })
       .its('body')
 
-  const getPokeCount = () =>
-    cy
-      .api({
-        method: 'GET',
-        url: 'pokemon',
-        retryOnStatusCodeFailure: true
-      })
-      .its('body.count')
-
   const topLevelProps = {
     $topic: '***pokemon-top-level***',
     abilities: spok.array,
@@ -105,34 +96,5 @@ describe('pokemon api', () => {
         .each((stat) => cy.wrap(stat).should(spok(statProps)))
     )
     // )
-  })
-
-  context('get many with cypress-each', () => {
-    it.each(Cypress._.range(1, 10))('checking pokemon %k', (pokeId) => {
-      getPokemon(pokeId)
-        .should(spok(topLevelProps))
-        .its('stats')
-        .should('have.length', 6) // an array of objects
-        .each((stat) => cy.wrap(stat).should(spok(statProps)))
-    })
-  })
-
-  context.skip('how would you make this work?', () => {
-    let count = 1
-
-    before(() =>
-      getPokeCount().then((pokeResultCount) => {
-        count = pokeResultCount
-      })
-    )
-
-    // count is yielded in a different context, so how can we get this value to be dynamic?
-    it.each(Cypress._.range(1, count))('checking pokemon %k', (pokeId) => {
-      getPokemon(pokeId)
-        .should(spok(topLevelProps))
-        .its('stats')
-        .should('have.length', 6) // an array of objects
-        .each((stat) => cy.wrap(stat).should(spok(statProps)))
-    })
   })
 })
