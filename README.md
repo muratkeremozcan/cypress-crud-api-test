@@ -1301,6 +1301,8 @@ describe('Crud operations with cy spok', () => {
 
 Let's just begin by stating that,***cypress-data-session can speed up your tests by 20-80% and reduce your API costs by a factor***. Anyone at our company [Extend](https://www.extend.com/) will sign off on that statement, because all 6 of our domain entities -each catered by a [cypress test plugin](https://dev.to/muratkeremozcan/how-to-create-an-internal-test-plugins-for-your-team-in-ts-implement-custom-commands-and-use-other-cypress-plugins-in-them-5lp)- are utilizing data-session to speed up tests and reduce data manupulation costs. In turn, more than 25 services and applications are using these entities / test plugins to write UI or API e2e tests in order to manipulate back-end data.
 
+> Double check that the plugin is installed, it is imported at `./cypress/support/index.ts` and types are added to `tsconfig.json`.
+
 Cypress data session allows an advanced way of manupilating data by not incurring costs for an entity that may already exist. We will go through a simple example exlaining it, so that you can start using it in your environment. In our e2e case study here, if an order with a pizzaId already exists in the DB, we want to re-use that order and not create a new one. 
 
 Before the code, let's go over the data-session logic as documented in the [Gleb's docs](https://github.com/bahmutov/cypress-data-session/blob/main/README.md). He put a lot of work into explaining this sophisticated flow that is is worth a read.
@@ -1445,6 +1447,249 @@ Now we can enabled the delete operation, and execute the test for the 3rd time s
 ![data-session-4th-run.png](./img/data-session-4th-run.png)
 
 With this exampe, you can imagine a plethora of ways to speed up yor API manipulation and reduce costs while running the e2e tests.
+
+### Data driven tests with [cypress-each](https://github.com/bahmutov/cypress-each)
+
+This is the simplest of the concepts in the entire guide, however it can become the most difficult getting it to work if we try to tackle it as the first. Always start simple with crud tests, then add assertions, then improve those assertions (for example using spok). After these, consider data session for faster & cheaper tests. Finally, once all these are accomplished and you have green CI, only then begin to make the tests data driven.
+
+When testing APIs you may often need data driven tests. Cypress-each provides a similar feature to Jest. Some examples of a data driven test could be the same test being executed for different roles, api versions, or anything else. All these factors can build up exponentially, and that multi-dimentional array of factors is easy to abstract using  `describe`, and `it` blocks. Mind that you can have many `describe` blocks wrapping `it` blocks.
+
+> Double check that the plugin is installed, it is imported at `./cypress/support/index.ts` and types are added to `tsconfig.json`.
+
+Let's start with a simple spec we will call `each.spec.ts`.
+
+```typescript
+it('should say hello', () => {
+  cy.log('hello')
+})
+```
+
+We can pass in an array as the test suite. The below will run 5 tests.
+
+```typescript
+it.each(Cypress._.range(0, 5))('should say hello with %k', (k) => {
+  cy.log(`hello ${k}`)
+})
+```
+
+We can make that array 2 dimentional by wrapping it with a `describe` block. The below should give us 4 x 5 = 20 tests.
+
+```typescript
+describe.each(['A', 'B', 'C', 'D'])('letter %s', (letter) => {
+  it.each(Cypress._.range(0, 5))('should say hello with %k', (key) => {
+    cy.log(`hello ${letter} ${key}`)
+  })
+})
+```
+
+We can build the array dimentions, making Cypress rich while using the Cypress Dashboard. The below should result in 3 x 4 x 5 = 60 tests. As you can see, it is easy to build these when using the wrapper describe blocks.
+
+```typescript
+describe.each(['red', 'green', 'blue'])('color %s', (color => {
+  describe.each(['A', 'B', 'C', 'D'])('letter %s', (letter) => {
+    it.each(Cypress._.range(0, 5))('should say hello with %k', (key) => {
+      cy.log(`hello ${color} ${letter} ${key}`)
+    })
+  })
+})
+```
+
+Now we can start putting it all together. Let's remove the cy.log, and scaffold our basic crud test instead. For now, comment out the outer describe blocks.
+
+```typescript
+import spok from 'cy-spok'
+import { datatype, address } from '@withshepherd/faker'
+
+describe('Crud operations using data session', () => {
+  let token
+
+  let pizzaId = datatype.number()
+
+  before(() => cy.task('token').then((t) => (token = t)))
+
+  // describe.each(['red', 'green', 'blue'])('color %s', (color) => {
+  // describe.each(['A', 'B', 'C', 'D'])('letter %s', (letter) => {
+  it.each(Cypress._.range(0, 5))('Crud operations with cy spok %k', () => {
+    cy.maybeCreateOrder('orderSession', token, {
+      pizza: pizzaId,
+      address: address.streetAddress()
+    })
+
+    cy.getOrders(token)
+      .its('body')
+      .then((orders) => {
+        const ourPizza = Cypress._.filter(
+          orders,
+          (order) => order.pizza === pizzaId
+        )
+        cy.wrap(ourPizza.length).should('be.gt', 0)
+        const orderId = ourPizza[0].orderId
+
+        cy.updateOrder(token, orderId, {
+          pizza: ++pizzaId,
+          address: address.streetAddress()
+        })
+
+        cy.getOrder(token, orderId).as('get').its('status').should('eq', 200)
+
+        cy.deleteOrder(token, orderId).its('status').should('eq', 200)
+      })
+  })
+})
+```
+
+Well, that works pretty well. This means we can even bring in the spok style assertions. We can also seamlessly use data-session. Let's try both.
+
+```typescript
+import spok from 'cy-spok'
+import { datatype, address } from '@withshepherd/faker'
+
+describe('Crud operations using data session', () => {
+  let token
+
+  const pizzaId = datatype.number()
+  const editedPizzaId = +pizzaId
+  const postPayload = { pizza: pizzaId, address: address.streetAddress() }
+  const putPayload = {
+    pizza: editedPizzaId,
+    address: address.streetAddress()
+  }
+
+  // the common properties between the assertions
+  const commonProperties = {
+    address: spok.string,
+    orderId: spok.test(/\w{8}-\w{4}-\w{4}-\w{4}-\w{12}/), // regex pattern to match any id
+    status: (s) => expect(s).to.be.oneOf(['pending', 'delivered'])
+  }
+
+  // common spok assertions between put and get
+  const satisfyAssertions = spok({
+    pizza: editedPizzaId,
+    ...commonProperties
+  })
+
+  before(() => cy.task('token').then((t) => (token = t)))
+
+  // describe.each(['red', 'green', 'blue'])('color %s', (color) => {
+  // describe.each(['A', 'B', 'C', 'D'])('letter %s', (letter) => {
+  it.each(Cypress._.range(0, 5))('Crud operations with cy spok %k', () => {
+    cy.maybeCreateOrder('orderSession', token, postPayload)
+
+    cy.getOrders(token)
+      .should((res) => expect(res.status).to.eq(200))
+      .its('body')
+      .then((orders) => {
+        const ourPizza = Cypress._.filter(
+          orders,
+          (order) => order.pizza === pizzaId
+        )
+        cy.wrap(ourPizza.length).should('eq', 1)
+        const orderId = ourPizza[0].orderId
+
+        cy.getOrder(token, orderId)
+          .its('body')
+          .should(
+            spok({
+              pizza: pizzaId,
+              ...commonProperties
+            })
+          )
+
+        cy.updateOrder(token, orderId, putPayload)
+          .its('body')
+          .should(satisfyAssertions)
+
+        cy.getOrder(token, orderId).its('body').should(satisfyAssertions)
+
+        cy.deleteOrder(token, orderId).its('status').should('eq', 200)
+      })
+  })
+})
+```
+
+The tests are stateless, cleaning up themselves. We can also enable the `describe.each` wrappers, but maybe not enable all of it in CI so that poor Murat pays AWS a fortune. You know it works, but please use it sparingly.
+
+As you can see it is much easier to leave data-driven flow to the end and create sophisticated but simple test suites. 
+
+```typescript
+import spok from 'cy-spok'
+import { datatype, address } from '@withshepherd/faker'
+
+describe('Crud operations using data session', () => {
+  let token
+
+  const pizzaId = datatype.number()
+  const editedPizzaId = +pizzaId
+  const postPayload = { pizza: pizzaId, address: address.streetAddress() }
+  const putPayload = {
+    pizza: editedPizzaId,
+    address: address.streetAddress()
+  }
+
+  // the common properties between the assertions
+  const commonProperties = {
+    address: spok.string,
+    orderId: spok.test(/\w{8}-\w{4}-\w{4}-\w{4}-\w{12}/), // regex pattern to match any id
+    status: (s) => expect(s).to.be.oneOf(['pending', 'delivered'])
+  }
+
+  // common spok assertions between put and get
+  const satisfyAssertions = spok({
+    pizza: editedPizzaId,
+    ...commonProperties
+  })
+
+  before(() => cy.task('token').then((t) => (token = t)))
+
+  describe.each(['red', 'green', 'blue'])('color %s', (color) => {
+    describe.each(['A', 'B', 'C', 'D'])(
+      `color ${color} letter %s`,
+      (letter) => {
+        it.each(Cypress._.range(0, 5))(
+          `Crud operations with cy spok: color ${color} letter ${letter} %k`,
+          (key) => {
+            cy.log(`***color: ${color}, letter: ${letter}, key: ${key}***`)
+
+            cy.maybeCreateOrder('orderSession', token, postPayload)
+
+            cy.getOrders(token)
+              .should((res) => expect(res.status).to.eq(200))
+              .its('body')
+              .then((orders) => {
+                const ourPizza = Cypress._.filter(
+                  orders,
+                  (order) => order.pizza === pizzaId
+                )
+                cy.wrap(ourPizza.length).should('eq', 1)
+                const orderId = ourPizza[0].orderId
+
+                cy.getOrder(token, orderId)
+                  .its('body')
+                  .should(
+                    spok({
+                      pizza: pizzaId,
+                      ...commonProperties
+                    })
+                  )
+
+                cy.updateOrder(token, orderId, putPayload)
+                  .its('body')
+                  .should(satisfyAssertions)
+
+                cy.getOrder(token, orderId)
+                  .its('body')
+                  .should(satisfyAssertions)
+
+                cy.deleteOrder(token, orderId).its('status').should('eq', 200)
+              })
+          }
+        )
+      }
+    )
+  })
+})
+
+```
 
 
 
