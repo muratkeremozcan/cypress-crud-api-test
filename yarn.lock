@@ -585,7 +585,7 @@ cypress-data-session@1.15.1:
     debug "^4.3.2"
     simple-sha256 "^1.1.0"
 
-cypress-each@^1.10.0:
+cypress-each@1.10.0:
   version "1.10.0"
   resolved "https://registry.yarnpkg.com/cypress-each/-/cypress-each-1.10.0.tgz#04ace3cc3024eab9cadf4cb3f40b23c17fe487b1"
   integrity sha512-Y9ttXrWTd1MDut1nnukxJ/jZCjyi4Ns+dF3drxdpmuAohOn6+Xu2JxHI3Xttbm6/3z7fa4lV2uQTn4f6zDsROw==
