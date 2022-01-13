@@ -8,6 +8,8 @@ yarn cy:run
 
 For learning purposes, you can check out the branch `base` to start from scratch and follow the guide. `main` has the final version of the repo. The code samples are setup to copy paste into the repo and work at every step.
 
+Follow the blog post at [dev.to](https://dev.to/muratkeremozcan/crud-api-testing-a-deployed-service-with-cypress-using-cy-api-spok-cypress-data-session-cypress-each-4mlg) for guidance.
+
 ### The Service under test
 
 The service we are using in this example is Aunt Maria's Pizzeria from the book [Serverless Applications with Node.js](https://www.manning.com/books/serverless-applications-with-node-js).
