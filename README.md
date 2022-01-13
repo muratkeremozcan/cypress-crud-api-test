@@ -1297,4 +1297,155 @@ describe('Crud operations with cy spok', () => {
 
 > For more cy-spok style assertion examples, take a look at [cy-api-spok](https://github.com/muratkeremozcan/cypressExamples/tree/master/cypress-api-spok/cypress/integration) examples and the [video tutorial](https://www.youtube.com/watch?v=OGL_qIS7MZo&t=2s) going through it.
 
+### Advanced data manipulation with [cypress-data-session](https://github.com/bahmutov/cypress-data-session)
+
+Let's just begin by stating that,***cypress-data-session can speed up your tests by 20-80% and reduce your API costs by a factor***. Anyone at our company [Extend](https://www.extend.com/) will sign off on that statement, because all 6 of our domain entities -each catered by a [cypress test plugin](https://dev.to/muratkeremozcan/how-to-create-an-internal-test-plugins-for-your-team-in-ts-implement-custom-commands-and-use-other-cypress-plugins-in-them-5lp)- are utilizing data-session to speed up tests and reduce data manupulation costs. In turn, more than 25 services and applications are using these entities / test plugins to write UI or API e2e tests in order to manipulate back-end data.
+
+Cypress data session allows an advanced way of manupilating data by not incurring costs for an entity that may already exist. We will go through a simple example exlaining it, so that you can start using it in your environment. In our e2e case study here, if an order with a pizzaId already exists in the DB, we want to re-use that order and not create a new one. 
+
+Before the code, let's go over the data-session logic as documented in the [Gleb's docs](https://github.com/bahmutov/cypress-data-session/blob/main/README.md). He put a lot of work into explaining this sophisticated flow that is is worth a read.
+
+- First, the code pulls cached data for the session name.
+- if there is no cached value:
+
+  - it calls the `init` method, which might return a value
+    - if there is a value && passes `validate` callback
+      - it calls `recreate`, saves the value in the data session and finishes
+    - else it needs to generate the real value and save it
+- else (there is a cached value):
+  - it calls `validate` with the cached value
+    - if the `validate` returns `true`, the code calls `recreate` method
+    - else it has to recompute the value, so it calls `onInvalidated`, `preSetup`, and `setup` methods
+
+![data-session](./img/flowchart.png)
+
+
+
+Add the below functions to `./cypress/commands.ts`. In cy-data-session, not every option is needed, but we will display them here for educational purposes. Please note that every implementation will be different; the flows and options are there, and within that space we have the freedom to implement the logic we need for our use case.
+
+```typescript
+/** Checks if a pizza with the given id exists in the database */
+const checkPizza = (token: string, pizzaId: number) =>
+  cy
+    .getOrders(token, true) // allowed to fail
+    .its('body')
+    .then(
+      (orders) =>
+        Cypress._.filter(orders, (order) => order.pizza === pizzaId).length
+    )
+    .then(Boolean)
+
+Cypress.Commands.add(
+  'maybeCreateOrder',
+  (
+    sessionName: string,
+    token: string,
+    body: Order = {
+      pizza: datatype.number(),
+      address: address.streetAddress()
+    }
+  ) =>
+    cy.dataSession({
+      name: `${sessionName}`,
+
+      // this is not really necessary, it is here for clarity and educational purposes
+      init: () => {
+        cy.log(
+          `**init()**: runs when there is nothing in cache. Yields the value to 		                validate()`
+        )
+      },
+
+      validate: () => {
+        cy.log(
+          `**validate()**: returns true if the pizza already exists, false otherwise.`
+        )
+        return checkPizza(token, body.pizza)
+      },
+
+      setup: () => {
+        cy.log(`**setup()**: there is no pizza by that id, so create an order.`)
+        cy.createOrder(token, body)
+      },
+
+      recreate: () => {
+        cy.log(
+          `**recreate()**: if there is a pizza by that ID, just resolve a promise                      through`
+        )
+        Promise.resolve()
+      },
+
+      onInvalidated: () => {
+        cy.log(
+          `**onInvalidated**: runs when validate() returns false; no pizza!`
+        )
+      },
+
+      shareAcrossSpecs: true
+    })
+)
+
+```
+
+
+
+Now let's createa new spec file `data-session.spec.ts` with our base crud. There will be 2 main differences; we will use a fixed pizzaId and we will not update the orderId in order to demo data-session.
+
+```typescript
+import { address } from '@withshepherd/faker'
+
+describe('Crud operations using data session', () => {
+  let token
+  // if this id is new it will work just like regular createOrder, 
+  // if it is a duplicate, it will reuse that order
+  const pizzaId = 83010
+
+  before(() => cy.task('token').then((t) => (token = t)))
+
+  it('If the pizza by id already exists in the DB, re-uses it', () => {
+    cy.maybeCreateOrder('orderSession', token, {
+      pizza: pizzaId,
+      address: address.streetAddress()
+    })
+
+    cy.getOrders(token)
+      .its('body')
+      .then((orders) => {
+        const ourPizza = Cypress._.filter(
+          orders,
+          (order) => order.pizza === pizzaId
+        )
+        cy.wrap(ourPizza.length).should('be.gt', 0)
+        const orderId = ourPizza[0].orderId
+
+        // let's not change the orderId so that we can demo data session
+
+        cy.getOrder(token, orderId).as('get').its('status').should('eq', 200)
+        cy.get('@get').its('body.pizza').should('eq', pizzaId)
+
+        // try toggling the delete,
+        // next time the test runs it can re-use the order 
+        // if we did not delete it the previous run
+        // cy.deleteOrder(token, orderId).its('status').should('eq', 200)
+      })
+  })
+})
+
+```
+
+If we started with a unique pizzaId, our initial run will look like the below. If the pizzaId was unique, it checked the order list and did not find anything (invalidated), then proceeded to create an order from scratch.
+
+![data-session-initial-run](./img/data-session-initial-run.png)
+
+Now, for demo purposes, keep the delete commented out and rerun the test. Since in the prior run the order was not deleted, it checks all orders and finds the order because the pizzaId exists. It tells us that the session is still valid, then just resolves an empty promise via `recreate`. You can imagine alternative choices here, for instance if your entity was soft deleted previously, this is where it can be re-activated.
+
+![data-session-2nd-run](./img/data-session-2nd-run.png)
+
+Now we can enabled the delete operation, and execute the test for the 3rd time so that it has a chance to delete the entity from the DB. Nothing to note there, it did a regular crud and cleaned up after itself. Execute the test for the 4th time and it will look like a fresh start.
+
+![data-session-4th-run.png](./img/data-session-4th-run.png)
+
+With this exampe, you can imagine a plethora of ways to speed up yor API manipulation and reduce costs while running the e2e tests.
+
+
+
 That is it for CRUD API testing a service with Cypress. You can complement you Cypress skills on the UI side via [Cypress basics workshop](https://github.com/bahmutov/cypress-workshop-basics).

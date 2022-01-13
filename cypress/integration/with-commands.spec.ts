@@ -1,6 +1,6 @@
 import { datatype, address } from '@withshepherd/faker'
 
-describe('Crud operations', () => {
+describe('Crud operations with commands', () => {
   let token
   before(() => cy.task('token').then((t) => (token = t)))
 

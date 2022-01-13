@@ -1,5 +1,12 @@
 import { datatype, address } from '@withshepherd/faker'
 
+export type Order = {
+  pizza: number
+  address: string
+  orderId?: string
+  status?: 'delivered' | 'pending'
+}
+
 const headers = (token) => ({
   'Access-Token': token
 })
@@ -8,7 +15,7 @@ Cypress.Commands.add(
   'createOrder',
   (
     token: string,
-    body = {
+    body: Order = {
       pizza: datatype.number(),
       address: address.streetAddress()
     },
@@ -51,7 +58,7 @@ Cypress.Commands.add(
   (
     token: string,
     orderId: string,
-    body = {
+    body: Order = {
       pizza: datatype.number(),
       address: address.streetAddress()
     },
@@ -76,5 +83,65 @@ Cypress.Commands.add(
       headers: headers(token),
       retryOnStatusCodeFailure: !allowedToFail,
       failOnStatusCode: !allowedToFail
+    })
+)
+
+/** Checks if a pizza with the given id exists in the database */
+const checkPizza = (token: string, pizzaId: number) =>
+  cy
+    .getOrders(token, true) // allowed to fail
+    .its('body')
+    .then(
+      (orders) =>
+        Cypress._.filter(orders, (order) => order.pizza === pizzaId).length
+    )
+    .then(Boolean)
+
+Cypress.Commands.add(
+  'maybeCreateOrder',
+  (
+    sessionName: string,
+    token: string,
+    body: Order = {
+      pizza: datatype.number(),
+      address: address.streetAddress()
+    }
+  ) =>
+    cy.dataSession({
+      name: `${sessionName}`,
+
+      // this is not really necessary, it is here for clarity and educational purposes
+      init: () => {
+        cy.log(
+          `**init()**: runs when there is nothing in cache. Yields the value to validate()`
+        )
+      },
+
+      validate: () => {
+        cy.log(
+          `**validate()**: returns true if the pizza already exists, false otherwise.`
+        )
+        return checkPizza(token, body.pizza)
+      },
+
+      setup: () => {
+        cy.log(`**setup()**: there is no pizza by that id, so create an order.`)
+        cy.createOrder(token, body)
+      },
+
+      recreate: () => {
+        cy.log(
+          `**recreate()**: if there is a pizza by that ID, just resolve a promise through`
+        )
+        Promise.resolve()
+      },
+
+      onInvalidated: () => {
+        cy.log(
+          `**onInvalidated**: runs when validate() returns false; no pizza!`
+        )
+      },
+
+      shareAcrossSpecs: true
     })
 )

@@ -1,4 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
+
+import { Order } from './support/commands'
+
 /* eslint-disable @typescript-eslint/no-explicit-any */
 export {}
 
@@ -13,7 +16,7 @@ declare global {
        */
       createOrder(
         token: string,
-        body?: object,
+        body?: Order,
         allowedToFail?: boolean
       ): Chainable<any>
 
@@ -43,7 +46,7 @@ declare global {
       updateOrder(
         token: string,
         id: string,
-        body?: object,
+        body?: Order,
         allowedToFail?: boolean
       ): Chainable<any>
 
@@ -56,6 +59,16 @@ declare global {
         token: string,
         id: string,
         allowedToFail?: boolean
+      ): Chainable<any>
+
+      /** Checks if a pizza by the given ID exists before trying to create an order.
+       * If no pizza is found, creates an order
+       * If there is already a Pizza with the given id, re-uses it  does not incur api costs.
+       */
+      maybeCreateOrder(
+        sessionName: string,
+        token: string,
+        body?: Order
       ): Chainable<any>
     }
   }
