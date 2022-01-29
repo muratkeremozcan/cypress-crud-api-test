@@ -592,10 +592,10 @@ cy-spok@1.5.2:
     spok "^1.4.3"
     strip-ansi "6.0.1"
 
-cypress-data-session@1.15.1:
-  version "1.15.1"
-  resolved "https://registry.yarnpkg.com/cypress-data-session/-/cypress-data-session-1.15.1.tgz#6d9d1c25550c8639686fa98c18f6070475f3b452"
-  integrity sha512-GLldWnVFKnjXd1fl7NapbD8ruogN51LuhZKQLT/Gq8JDVxnskd/eg5vgfyLBwQiUmlcFjY0LME9Oej5osaIq5Q==
+cypress-data-session@2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/cypress-data-session/-/cypress-data-session-2.0.0.tgz#9196501490cbfccfd3e907cbaf0a59d94cb61a6d"
+  integrity sha512-OlfBSP/EBe5fHPnrM6TGe4NqXq77UZ9gY3rgjo45Crxm/qajZvCNrG05XYzlvdan1RBbimhvUmkAidt5vVd8eA==
   dependencies:
     debug "^4.3.2"
     simple-sha256 "^1.1.0"
