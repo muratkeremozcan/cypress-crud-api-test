@@ -2,7 +2,7 @@
 module.exports = {
   root: true,
   parser: '@typescript-eslint/parser',
-  plugins: ['@typescript-eslint', 'cypress', 'no-only-tests'],
+  plugins: ['@typescript-eslint', 'cypress', 'chai-friendly', 'no-only-tests'],
   extends: [
     'eslint:recommended',
     'plugin:@typescript-eslint/recommended',
