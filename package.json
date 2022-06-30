@@ -5,6 +5,10 @@
   "scripts": {
     "typecheck": "tsc --skipLibCheck --noEmit",
     "lint": "eslint --ext=.js,.ts,.tsx",
+    "prettier": "prettier --ignore-path .gitignore \"**/*.+(js|ts|json)\"",
+    "fix-format": "yarn prettier -- --write",
+    "check-format": "yarn prettier -- --list-different",
+    "validate": "npm-run-all --parallel typecheck lint check-format",
     "cy:open": "cypress open",
     "cy:run": "cypress run"
   },
@@ -18,19 +22,31 @@
     "@typescript-eslint/parser": "5.30.0",
     "@withshepherd/faker": "5.5.5",
     "cy-spok": "1.5.2",
-    "cypress": "9.7.0",
+    "cypress": "10.3.0",
     "cypress-data-session": "2.0.0",
     "cypress-each": "1.11.0",
     "eslint": "8.18.0",
+    "eslint-plugin-chai-friendly": "0.7.2",
     "eslint-plugin-cypress": "2.12.1",
     "eslint-plugin-no-only-tests": "2.6.0",
-    "husky": "4.3.5",
+    "husky": "4.3.8",
+    "lint-staged": "13.0.3",
+    "npm-run-all": "4.1.5",
+    "prettier": "2.7.1",
     "jsonwebtoken": "8.5.1",
     "typescript": "4.7.4"
   },
   "husky": {
     "hooks": {
-      "pre-commit": "yarn lint && yarn typecheck"
+      "pre-commit": "yarn typecheck && lint-staged"
     }
+  },
+  "lint-staged": {
+    "*.+(js|ts|tsx)": [
+      "eslint"
+    ],
+    "**/*.+(js|ts|json)": [
+      "prettier --write"
+    ]
   }
 }
