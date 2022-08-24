@@ -656,11 +656,12 @@ cy-spok@1.5.2:
     spok "^1.4.3"
     strip-ansi "6.0.1"
 
-cypress-data-session@2.0.0:
-  version "2.0.0"
-  resolved "https://registry.yarnpkg.com/cypress-data-session/-/cypress-data-session-2.0.0.tgz#9196501490cbfccfd3e907cbaf0a59d94cb61a6d"
-  integrity sha512-OlfBSP/EBe5fHPnrM6TGe4NqXq77UZ9gY3rgjo45Crxm/qajZvCNrG05XYzlvdan1RBbimhvUmkAidt5vVd8eA==
+cypress-data-session@2.1.0:
+  version "2.1.0"
+  resolved "https://registry.yarnpkg.com/cypress-data-session/-/cypress-data-session-2.1.0.tgz#9c8b89e94cfddd099a775dc12264673dc061998c"
+  integrity sha512-FdjLS5touyfijX+CZsPoYN0Hr2Bn2Q4+IXB1es7U3n3z0xDAdZSBnmmKq1ZojXntO37ljvkcE5CXlSCizz9uDQ==
   dependencies:
+    cypress-plugin-config "^1.2.0"
     debug "^4.3.2"
     simple-sha256 "^1.1.0"
 
@@ -668,6 +669,11 @@ cypress-each@1.11.0:
   version "1.11.0"
   resolved "https://registry.yarnpkg.com/cypress-each/-/cypress-each-1.11.0.tgz#013c9b43a950f157bcf082d4bd0bb424fb370441"
   integrity sha512-zeqeQkppPL6BKLIJdfR5IUoZRrxRudApJapnFzWCkkrmefQSqdlBma2fzhmniSJ3TRhxe5xpK3W3/l8aCrHvwQ==
+
+cypress-plugin-config@^1.2.0:
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/cypress-plugin-config/-/cypress-plugin-config-1.2.0.tgz#814671e75b802d5b1e17229621996114e3cd2ce1"
+  integrity sha512-vgMMwjeI/L+2xptqkyhJ20LRuZrrsdbPaGMNNLVq+Cwox5+9dm0E312gpMXgXRs05uyUAzL/nCm/tdTckSAgoQ==
 
 cypress@10.6.0:
   version "10.6.0"
