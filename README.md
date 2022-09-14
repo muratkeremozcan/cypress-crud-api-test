@@ -1,4 +1,4 @@
-## A guide to CRUD API testing a deployed service with Cypress ![cypress version](https://img.shields.io/badge/cypress-10.7.0-brightgreen) ![cypress-data-session version](https://img.shields.io/badge/cypress--data--session-2.1.0-brightgreen) ![cy-spok version](https://img.shields.io/badge/cy--spok-1.5.2-brightgreen) ![@bahmutov/cy-api version](https://img.shields.io/badge/@bahmutov/cy--api-2.2.0-brightgreen)
+## A guide to CRUD API testing a deployed service with Cypress ![cypress version](https://img.shields.io/badge/cypress-10.8.0-brightgreen) ![cypress-data-session version](https://img.shields.io/badge/cypress--data--session-2.1.0-brightgreen) ![cy-spok version](https://img.shields.io/badge/cy--spok-1.5.2-brightgreen) ![@bahmutov/cy-api version](https://img.shields.io/badge/@bahmutov/cy--api-2.2.0-brightgreen)
 
 ```bash
 yarn install
