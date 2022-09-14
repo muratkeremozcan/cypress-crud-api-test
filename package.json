@@ -22,7 +22,7 @@
     "@typescript-eslint/parser": "5.37.0",
     "@withshepherd/faker": "5.5.5",
     "cy-spok": "1.5.2",
-    "cypress": "10.7.0",
+    "cypress": "10.8.0",
     "cypress-data-session": "2.1.0",
     "cypress-each": "1.11.0",
     "eslint": "8.23.1",
