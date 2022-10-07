@@ -23,10 +23,10 @@
     chalk "^2.0.0"
     js-tokens "^4.0.0"
 
-"@bahmutov/cy-api@2.2.0":
-  version "2.2.0"
-  resolved "https://registry.yarnpkg.com/@bahmutov/cy-api/-/cy-api-2.2.0.tgz#717d5fe2107bf710e121a20d129386e6a463d388"
-  integrity sha512-FtL1XJ9VZblEX6SrwJWooWTuP7wnTqhLo9WRfQdhdHrOi9m3X1vHzuwVynDGLg3AetiaQN1xzzVxJEx5kJcfwA==
+"@bahmutov/cy-api@2.2.1":
+  version "2.2.1"
+  resolved "https://registry.yarnpkg.com/@bahmutov/cy-api/-/cy-api-2.2.1.tgz#49e1c336eead7ade12c862e102d6ff77bf13ff54"
+  integrity sha512-8mP5xQK2GT8oH/yv6OmUSX7abZBvdUrEF1fj2mJKtt7ONxwDewBxrO/X20uXRPKRK33MSmyibfa2JkXtJhTETg==
   dependencies:
     "@types/common-tags" "1.8.1"
     common-tags "1.8.2"
