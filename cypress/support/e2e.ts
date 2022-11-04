@@ -1,4 +1,5 @@
 import './commands'
-import '@bahmutov/cy-api'
 import 'cypress-data-session'
 import 'cypress-each'
+// import '@bahmutov/cy-api'
+import 'cypress-plugin-api' // toggle between cy-api and cypress-plugin-api
