@@ -24,7 +24,7 @@
     "cy-spok": "1.5.2",
     "cypress": "11.0.1",
     "cypress-data-session": "2.2.1",
-    "cypress-each": "1.13.0",
+    "cypress-each": "1.13.1",
     "cypress-plugin-api": "^2.0.0",
     "eslint": "8.27.0",
     "eslint-plugin-chai-friendly": "0.7.2",
