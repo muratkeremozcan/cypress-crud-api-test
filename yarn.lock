@@ -768,12 +768,13 @@ cypress-each@1.13.1:
   resolved "https://registry.yarnpkg.com/cypress-each/-/cypress-each-1.13.1.tgz#65121a7f9fe865a6ea52e0751133b4e0e84f47a8"
   integrity sha512-YbVfrjk4gWTDLOV8YAb3tA6ovQiyl90zvl4M7aLADD0aUBei6nOSXI7xu6LVgLlVcLkM4jRSS2jBIiifauGgpQ==
 
-cypress-plugin-api@^2.0.0:
-  version "2.0.0"
-  resolved "https://registry.yarnpkg.com/cypress-plugin-api/-/cypress-plugin-api-2.0.0.tgz#9df6f901709566d5f4e18e1f27b7b6dc00bbc3d7"
-  integrity sha512-KzNV0f796aSx/JeklDwy3gIiicg5aPt080gYegwAG/FbYgbONEKpNH4AEFu/JJMLb0BdCWvpJW/N4xZrnfb3xQ==
+cypress-plugin-api@2.4.2:
+  version "2.4.2"
+  resolved "https://registry.yarnpkg.com/cypress-plugin-api/-/cypress-plugin-api-2.4.2.tgz#dd72e05c6eade22b78afcd21ea4ca5b17b568a58"
+  integrity sha512-q53SoXTfHRMaJkgrmUUkdOBQ3isXNF6MvHgUS0337nxSli4un+WIXOL7vm0plHVRCOmYcjyVQdQ/iiqxwJJXJA==
   dependencies:
     highlight.js "11.4.0"
+    prismjs "^1.29.0"
     set-cookie-parser "^2.5.1"
     vue "^3.2.41"
 
@@ -782,7 +783,7 @@ cypress-plugin-config@^1.2.0:
   resolved "https://registry.yarnpkg.com/cypress-plugin-config/-/cypress-plugin-config-1.2.0.tgz#814671e75b802d5b1e17229621996114e3cd2ce1"
   integrity sha512-vgMMwjeI/L+2xptqkyhJ20LRuZrrsdbPaGMNNLVq+Cwox5+9dm0E312gpMXgXRs05uyUAzL/nCm/tdTckSAgoQ==
 
-cypress@11.1.0:
+cypress@11.0.:
   version "11.1.0"
   resolved "https://registry.yarnpkg.com/cypress/-/cypress-11.1.0.tgz#b8f16495a8a5d8f9a7dd3374ae7b2cef45e9c779"
   integrity sha512-kzizbG9s3p3ahWqxUwG/21NqLWEGtScMevMyUPeYlcmMX9RzVxWM18MkA3B4Cb3jKx72hSyIE2mHgHymfCM1bg==
@@ -2379,6 +2380,11 @@ pretty-bytes@^5.6.0:
   version "5.6.0"
   resolved "https://registry.yarnpkg.com/pretty-bytes/-/pretty-bytes-5.6.0.tgz#356256f643804773c82f64723fe78c92c62beaeb"
   integrity sha512-FFw039TmrBqFK8ma/7OL3sDz/VytdtJr044/QUJtH0wK9lb9jLq9tJyIxUwtQJHwar2BqtiA4iCWSwo9JLkzFg==
+
+prismjs@^1.29.0:
+  version "1.29.0"
+  resolved "https://registry.yarnpkg.com/prismjs/-/prismjs-1.29.0.tgz#f113555a8fa9b57c35e637bba27509dcf802dd12"
+  integrity sha512-Kx/1w86q/epKcmte75LNrEoT+lX8pBpavuAbvJWRXar7Hz8jrtF+e3vY751p0R8H9HdArwaCTNDDzHg/ScJK1Q==
 
 proxy-from-env@1.0.0:
   version "1.0.0"
