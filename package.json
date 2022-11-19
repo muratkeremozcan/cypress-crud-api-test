@@ -25,7 +25,7 @@
     "cypress": "11.0.",
     "cypress-data-session": "2.2.1",
     "cypress-each": "1.13.1",
-    "cypress-plugin-api": "2.4.2",
+    "cypress-plugin-api": "2.5.0",
     "eslint": "8.27.0",
     "eslint-plugin-chai-friendly": "0.7.2",
     "eslint-plugin-cypress": "2.12.1",
