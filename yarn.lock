@@ -768,10 +768,10 @@ cypress-each@1.13.1:
   resolved "https://registry.yarnpkg.com/cypress-each/-/cypress-each-1.13.1.tgz#65121a7f9fe865a6ea52e0751133b4e0e84f47a8"
   integrity sha512-YbVfrjk4gWTDLOV8YAb3tA6ovQiyl90zvl4M7aLADD0aUBei6nOSXI7xu6LVgLlVcLkM4jRSS2jBIiifauGgpQ==
 
-cypress-plugin-api@2.6.0:
-  version "2.6.0"
-  resolved "https://registry.yarnpkg.com/cypress-plugin-api/-/cypress-plugin-api-2.6.0.tgz#57e4cb9b4e4512d3d0896ccbb5b717e27af37bed"
-  integrity sha512-lwIDX1BckkOXRN6OdsV9dle+71S558PBdyIRd0zJ8XumTOUAMnbZyS9PSYRUQM73o9yJOT5VE8ew0m6wXxgo1g==
+cypress-plugin-api@2.6.1:
+  version "2.6.1"
+  resolved "https://registry.yarnpkg.com/cypress-plugin-api/-/cypress-plugin-api-2.6.1.tgz#8f026fbcd0ac7610f39f89d3c09f26f50ab36de7"
+  integrity sha512-bpQZZWWhCLrsUBAcopZkgXTkLDTVnZQdpv1lSQfFkVc2DkJ6/eaH3PKiUh7QMVQ0afWrV40fFFXqLSPLd5nxLw==
   dependencies:
     highlight.js "11.4.0"
     prismjs "^1.29.0"
