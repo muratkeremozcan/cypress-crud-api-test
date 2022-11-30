@@ -754,10 +754,10 @@ cy-spok@1.5.2:
     spok "^1.4.3"
     strip-ansi "6.0.1"
 
-cypress-data-session@2.2.1:
-  version "2.2.1"
-  resolved "https://registry.yarnpkg.com/cypress-data-session/-/cypress-data-session-2.2.1.tgz#22ee17a23e42e41e26e3140b47fd8d1da4cc5bdb"
-  integrity sha512-xqUhyPUwxfy7PJ8VV8mGEY2xDZeFQsu+CD88R/V3wImty+bpd4R2rjgPs/sqQ0b943XFJRaurPAR7aWIKuTMIA==
+cypress-data-session@2.3.1:
+  version "2.3.1"
+  resolved "https://registry.yarnpkg.com/cypress-data-session/-/cypress-data-session-2.3.1.tgz#c3874cace208c8bc5e8cf0835820e58872630aff"
+  integrity sha512-jvLxQsR0fUF3UzmMngZCctH55uHZp3xxDY8/QOIomYjUjO3BPbYBYfEl2EXzgPcPYBM2Ui4van3cR6BpSq1Krg==
   dependencies:
     cypress-plugin-config "^1.2.0"
     debug "^4.3.2"
