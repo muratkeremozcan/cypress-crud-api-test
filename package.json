@@ -17,7 +17,7 @@
   "devDependencies": {
     "@bahmutov/cy-api": "2.2.1",
     "@types/faker": "6.6.8",
-    "@types/node": "18.11.11",
+    "@types/node": "18.11.12",
     "@typescript-eslint/eslint-plugin": "5.45.1",
     "@typescript-eslint/parser": "5.45.1",
     "@withshepherd/faker": "5.5.5",
