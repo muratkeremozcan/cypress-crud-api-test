@@ -48,9 +48,6 @@ jobs:
         run: yarn typecheck
 
   cypress-e2e-test:
-    strategy:
-      matrix:
-        machines: [1, 2]
     needs: [install-dependencies]
     runs-on: ubuntu-latest
     steps:
@@ -60,9 +57,7 @@ jobs:
         uses: cypress-io/github-action@v5.0.2
         with:
           browser: 'Replay Chromium'
-
           record: true
-          parallel: true
           group: e2e-tests
           tag: e2e-tests
         env:
