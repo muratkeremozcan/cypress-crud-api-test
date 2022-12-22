@@ -28,10 +28,10 @@
   resolved "https://registry.yarnpkg.com/@babel/parser/-/parser-7.20.1.tgz#3e045a92f7b4623cafc2425eddcb8cf2e54f9cc5"
   integrity sha512-hp0AYxaZJhxULfM1zyp7Wgr+pSUKBcP3M+PHnSzWGdXOzg/kHWIgiUWARvubhUKGOEw3xqY4x+lyZ9ytBVcELw==
 
-"@bahmutov/cy-api@2.2.1":
-  version "2.2.1"
-  resolved "https://registry.yarnpkg.com/@bahmutov/cy-api/-/cy-api-2.2.1.tgz#49e1c336eead7ade12c862e102d6ff77bf13ff54"
-  integrity sha512-8mP5xQK2GT8oH/yv6OmUSX7abZBvdUrEF1fj2mJKtt7ONxwDewBxrO/X20uXRPKRK33MSmyibfa2JkXtJhTETg==
+"@bahmutov/cy-api@2.2.3":
+  version "2.2.3"
+  resolved "https://registry.yarnpkg.com/@bahmutov/cy-api/-/cy-api-2.2.3.tgz#c3cf3ba1e2e28ac6b6539c7f26b0b08a8d80bafb"
+  integrity sha512-+s9SpOo1JZxYGzpEwu+exiUhSKOfc/6MNfvELP7ITKpAni6lNQS5AMt6+bbbpyJf1d+JKIxx1RrTxtCnb0LMAA==
   dependencies:
     "@types/common-tags" "1.8.1"
     common-tags "1.8.2"
