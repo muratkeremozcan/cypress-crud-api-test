@@ -21,7 +21,7 @@ jobs:
 
   lint:
     needs: install-dependencies
-    name: Run Lcod
+    name: Run lint
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
