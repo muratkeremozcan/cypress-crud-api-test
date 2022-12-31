@@ -10,7 +10,9 @@
     "check-format": "yarn prettier -- --list-different",
     "validate": "npm-run-all --parallel typecheck lint check-format",
     "cy:open": "cypress open",
-    "cy:run": "cypress run"
+    "cy:run": "cypress run",
+    "cy:open-e2e": "cypress open --e2e --browser chrome",
+    "cy:run-e2e": "cypress run --e2e --browser chrome"
   },
   "author": "Murat Ozcan",
   "license": "ISC",
@@ -25,7 +27,6 @@
     "cypress": "12.2.0",
     "cypress-data-session": "2.3.1",
     "cypress-each": "1.13.1",
-    "cypress-plugin-api": "2.9.0",
     "eslint": "8.31.0",
     "eslint-plugin-chai-friendly": "0.7.2",
     "eslint-plugin-cypress": "2.12.1",
