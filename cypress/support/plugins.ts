@@ -1,3 +1,4 @@
+import cypressReplay from '@replayio/cypress'
 const cyDataSession = require('cypress-data-session/src/plugin')
 
 /**
@@ -11,6 +12,7 @@ export default function plugins(
 ) {
   return {
     // add plugins here
+    ...cypressReplay(on, config),
     ...cyDataSession(on, config)
   }
 }

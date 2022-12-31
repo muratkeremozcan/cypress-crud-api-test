@@ -18,6 +18,7 @@
   "license": "ISC",
   "devDependencies": {
     "@bahmutov/cy-api": "2.2.3",
+    "@replayio/cypress": "^0.4.6",
     "@types/faker": "6.6.8",
     "@types/node": "18.11.18",
     "@typescript-eslint/eslint-plugin": "5.47.1",
