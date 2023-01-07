@@ -56,10 +56,21 @@ jobs:
       - name: Cypress e2e tests 🧪
         uses: cypress-io/github-action@v5.0.4
         with:
-          browser: chrome
+          browser: 'Replay Chromium'
           record: true
           group: e2e-tests
           tag: e2e-tests
         env:
           CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          # for replay.io
+          RECORD_ALL_CONTENT: 1
+          RECORD_REPLAY_METADATA_FILE: /tmp/replay-metadata
+
+      # for replay.io
+      - name: Upload replays
+        if: ${{ always() }}
+        uses: replayio/action-upload@v0.4.3
+        with:
+          api-key: ${{ secrets.RECORD_REPLAY_API_KEY }}
+          metadata-file: /tmp/replay-metadata
