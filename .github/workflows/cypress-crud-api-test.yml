@@ -14,6 +14,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
       - name: Install dependencies
         uses: cypress-io/github-action@v5.0.8
         with:
@@ -25,7 +27,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
       - name: Install dependencies
         uses: cypress-io/github-action@v5.0.8
         with:
@@ -39,7 +42,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
       - name: Install dependencies
         uses: cypress-io/github-action@v5.0.8
         with:
@@ -52,7 +56,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
       - name: Cypress e2e tests 🧪
         uses: cypress-io/github-action@v5.0.8
         with:
