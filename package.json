@@ -22,7 +22,7 @@
     "@esbuild-plugins/node-globals-polyfill": "0.2.3",
     "@esbuild-plugins/node-modules-polyfill": "0.2.2",
     "@types/faker": "6.6.8",
-    "@types/node": "18.14.2",
+    "@types/node": "18.14.5",
     "@typescript-eslint/eslint-plugin": "5.54.0",
     "@typescript-eslint/parser": "5.54.0",
     "@withshepherd/faker": "5.5.5",
