@@ -30,7 +30,7 @@
     "cypress": "12.9.0",
     "cypress-data-session": "2.3.2",
     "cypress-each": "1.13.1",
-    "esbuild": "0.17.14",
+    "esbuild": "0.17.15",
     "eslint": "8.37.0",
     "eslint-plugin-chai-friendly": "0.7.2",
     "eslint-plugin-cypress": "2.13.2",
