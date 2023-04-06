@@ -828,10 +828,10 @@ cy-spok@1.6.1:
     "@bahmutov/spok" "1.2.5"
     strip-ansi "6.0.1"
 
-cypress-data-session@2.3.2:
-  version "2.3.2"
-  resolved "https://registry.yarnpkg.com/cypress-data-session/-/cypress-data-session-2.3.2.tgz#671e8773df0d55288a1f2bc9d93fd85e93fedf7e"
-  integrity sha512-WImUbxrHEuxG0bXFXxNygLXVphQVhua56wO/JpVy063LfuySlhMGB+0Zkxg0u94y6sZKOL9VSvoidn7+e+E5ug==
+cypress-data-session@2.7.0:
+  version "2.7.0"
+  resolved "https://registry.yarnpkg.com/cypress-data-session/-/cypress-data-session-2.7.0.tgz#1dbae30798a7f7351c67b40cc20fdf28af512eac"
+  integrity sha512-Rj7WZ/Vn/givI6ja+y/c3QlT3jiwpVDReuBuYm66A31/Vi9PfCoI0SSY1pL/dUUrFEcqCLEFZiTiAWhgTtjXwQ==
   dependencies:
     cypress-plugin-config "^1.2.0"
     debug "^4.3.2"
