@@ -26,7 +26,7 @@
     "@typescript-eslint/eslint-plugin": "6.1.0",
     "@typescript-eslint/parser": "6.1.0",
     "@withshepherd/faker": "5.5.5",
-    "cy-spok": "1.6.1",
+    "cy-spok": "1.6.2",
     "cypress": "12.17.1",
     "cypress-data-session": "2.7.0",
     "cypress-each": "1.13.3",
