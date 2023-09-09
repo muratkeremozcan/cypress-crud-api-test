@@ -28,12 +28,12 @@
     chalk "^2.0.0"
     js-tokens "^4.0.0"
 
-"@bahmutov/cy-api@2.2.5":
-  version "2.2.5"
-  resolved "https://registry.yarnpkg.com/@bahmutov/cy-api/-/cy-api-2.2.5.tgz#3b2146107cc171abce5c40417fee815e8f181d7d"
-  integrity sha512-zJyew+O6gLD93N9vLsn83hQGLWVpD7a7Med6B5ubkbXC9SiMnpLe1vIm+moN4/PT7IJFNlbI58mkoXCb2jm+9g==
+"@bahmutov/cy-api@2.2.6":
+  version "2.2.6"
+  resolved "https://registry.yarnpkg.com/@bahmutov/cy-api/-/cy-api-2.2.6.tgz#e574085d3106a0b96c16c5013d3de1f913e56b1f"
+  integrity sha512-A7G7RRwyrSx+e41yL69Tt3mYklmXtyQ1k2zjA4tHJK5pvGfZZ94SJRfo54EoNH79H/mKtHrcJML+LEV+9SOA0g==
   dependencies:
-    "@types/common-tags" "1.8.1"
+    "@types/common-tags" "1.8.2"
     common-tags "1.8.2"
     highlight.js "11.4.0"
 
@@ -299,10 +299,10 @@
     "@nodelib/fs.scandir" "2.1.5"
     fastq "^1.6.0"
 
-"@types/common-tags@1.8.1":
-  version "1.8.1"
-  resolved "https://registry.yarnpkg.com/@types/common-tags/-/common-tags-1.8.1.tgz#a5a49ca5ebbb58e0f8947f3ec98950c8970a68a9"
-  integrity sha512-20R/mDpKSPWdJs5TOpz3e7zqbeCNuMCPhV7Yndk9KU2Rbij2r5W4RzwDPkzC+2lzUqXYu9rFzTktCBnDjHuNQg==
+"@types/common-tags@1.8.2":
+  version "1.8.2"
+  resolved "https://registry.yarnpkg.com/@types/common-tags/-/common-tags-1.8.2.tgz#04a2fed0597d18b6eb5eb9d24b62905041c572c9"
+  integrity sha512-Z5UcOnlqxFm0tCCTEhkcVOfSihWOMyKypIWHtQNSYh6fMdPUIVpNdLBYutDpDXVHsMUrYzI2IczUHXIzpUovmQ==
 
 "@types/faker@6.6.8":
   version "6.6.8"
